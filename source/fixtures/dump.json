@@ -1,0 +1,16 @@
+[
+{
+    "model": "course.course",
+    "pk": 1,
+    "fields": {
+        "name": "Buisness",
+        "image": "images/course/buisness.jpeg",
+        "description": "The best business",
+        "type": 3,
+        "price": "30.00",
+        "date_created": "2023-09-10T10:32:35.325Z",
+        "date_edited": "2023-09-10T10:32:35.325Z",
+        "user": []
+    }
+}
+]
