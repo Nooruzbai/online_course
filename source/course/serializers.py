@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from source.course.models import Course
+from course.models import Course, Order
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -8,3 +8,8 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ("id", "name", "image", "description", "type", "price")
 
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ('course',)

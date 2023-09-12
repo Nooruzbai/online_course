@@ -1,7 +1,10 @@
 from django.contrib.auth import get_user_model
+from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
 from accounts.models import Profile
+from course.models import Course
+from course.serializers import CourseSerializer
 
 User = get_user_model()
 
@@ -13,11 +16,11 @@ class UserProfileSerializer(ModelSerializer):
 
 
 class UserSerializer(ModelSerializer):
-    profile = UserProfileSerializer()
+    favourites = SerializerMethodField()
 
     class Meta:
         model = User
-        fields =('username', 'email', 'first_name', 'last_name', 'profile')
+        fields = ('username', 'email', 'first_name', 'last_name', 'profile', 'favourites')
 
     # def update(self, instance, validated_data):
     #     userprofile_serializer = self.fields['profile']
@@ -33,7 +36,8 @@ class UserSerializer(ModelSerializer):
     #     instance = super().update(instance, validated_data)
     #     return instance
 
-
+    def get_favourites(self, obj):
+        return obj.favourite.all()
 
 
 
