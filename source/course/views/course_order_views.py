@@ -11,7 +11,7 @@ from course.serializers import OrderSerializer
 class CourseOrderView(CreateAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
-    # authentication_classes = [IsAuthenticated]
+    permission_classes = (IsAuthenticated,)
 
     def perform_create(self, serializer):
         current_user = self.request.user
