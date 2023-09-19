@@ -1,4 +1,3 @@
-from django.views.generic import CreateView
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
@@ -15,7 +14,7 @@ class CourseOrderView(CreateAPIView):
 
     def perform_create(self, serializer):
         current_user = self.request.user
-        order = serializer.save(user_id = current_user.id)
+        order = serializer.save(user_id=current_user.id)
         return Response({
             "id": order.id,
             "name": order.course.name,

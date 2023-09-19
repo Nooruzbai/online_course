@@ -8,7 +8,6 @@ from course.views.course_views import CourseListView, CourseDetailView, CourseUp
 app_name = 'course'
 
 
-
 urlpatterns = [
         path('course/list/', CourseListView.as_view(), name='course_list_view'),
         path('course/create/', CourseCreateView.as_view(), name='course_create_view'),

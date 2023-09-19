@@ -4,7 +4,6 @@ from course.models import Course
 from course.serializers import CourseSerializer
 
 
-# Create your views here.
 
 class CourseListView(ListAPIView):
     serializer_class = CourseSerializer
