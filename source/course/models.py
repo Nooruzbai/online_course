@@ -20,6 +20,7 @@ class Course(models.Model):
     date_edited = models.DateTimeField(auto_now_add=True,
                                        verbose_name="Date edited")
     user = models.ManyToManyField(User, related_name='courses', verbose_name="User")
+    favourites = models.ManyToManyField(User, related_name='favourite', verbose_name='Favourite')
 
     def __str__(self):
         return f'{self.pk}. {self.name}, {self.name}'
