@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
+
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,8 +32,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -43,16 +44,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
 
     # Additional Apps for development
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
-    'dj_rest_auth',
     'dj_rest_auth.registration',
-    'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'rest_framework_swagger',
@@ -76,20 +76,23 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'accounts.custom_middleware.MoveJWTCookieIntoTheBody',
+    'accounts.custom_middleware.MoveJWTRefreshCookieIntoTheBody',
 ]
 
 ROOT_URLCONF = 'online_course.urls'
@@ -175,20 +178,16 @@ MEDIA_URL = "media/"
 
 
 SWAGGER_SETTINGS = {
-   'SECURITY_DEFINITIONS': {
-      'Bearer': {
+    # 'LOGOUT_URL': 'rest_framework:logout',
+     'SECURITY_DEFINITIONS': {
+        'Bearer': {
             'type': 'apiKey',
             'name': 'Authorization',
             'in': 'header'
-      }
-   }
+        }
+     }
 }
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     )
-# }
 
 AUTHENTICATION_BACKENDS = (
    "django.contrib.auth.backends.ModelBackend",
@@ -197,28 +196,62 @@ AUTHENTICATION_BACKENDS = (
 
 REST_AUTH = {
     'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserSerializer',
+
     # 'TOKEN_MODEL': 'rest_framework.authtoken.models.Token',
     # 'TOKEN_CREATOR': 'dj_rest_auth.utils.default_create_token',
 
     # 'PASSWORD_RESET_USE_SITES_DOMAIN': False,
     # 'OLD_PASSWORD_FIELD_ENABLED': False,
     # 'LOGOUT_ON_PASSWORD_CHANGE': True,
-    # 'SESSION_LOGIN': True,
-    # 'USE_JWT': True,
+    'SESSION_LOGIN': True,
+    'USE_JWT': True,
 
-    # 'JWT_AUTH_COOKIE': True,
-    # 'JWT_AUTH_REFRESH_COOKIE': True,
+    'JWT_AUTH_COOKIE': 'access',
+    'JWT_AUTH_REFRESH_COOKIE': 'refresh',
     # 'JWT_AUTH_REFRESH_COOKIE_PATH': '/',
-    # 'JWT_AUTH_SECURE': False,
-    # 'JWT_AUTH_HTTPONLY': True,
-    # 'JWT_AUTH_SAMESITE': 'Lax',
+    # 'JWT_AUTH_SECURE': True,
+    'JWT_AUTH_HTTPONLY': False,
+    'JWT_AUTH_SAMESITE': 'Lax',
     # 'JWT_AUTH_RETURN_EXPIRATION': None,
-    # 'JWT_AUTH_COOKIE_USE_CSRF': False,
+    # 'JWT_AUTH_COOKIE_USE_CSRF': True,
     # 'JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED': False,
 }
 
 REST_FRAMEWORK = {
+    'FORM_METHOD_OVERRIDE': None,
+    'FORM_CONTENT_OVERRIDE': None,
+    'FORM_CONTENTTYPE_OVERRIDE': None,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ],
+
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ]
 }
+
+# SIMPLE_JWT = {
+#     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+#     "REFRESH_TOKEN_LIFETIME": timedelta(days=14),
+#     "ROTATE_REFRESH_TOKENS": True,
+#     "BLACKLIST_AFTER_ROTATION": True,
+#     "UPDATE_LAST_LOGIN": False,
+#     "ALGORITHM": "HS256",
+#     "SIGNING_KEY": SECRET_KEY,
+#     "VERIFYING_KEY": None,
+#     "AUDIENCE": None,
+#     "ISSUER": None,
+#     "JWK_URL": None,
+#     "LEEWAY": 0,
+#     "AUTH_HEADER_TYPES": ("Bearer",),
+#     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+#     "USER_ID_FIELD": "id",
+#     "USER_ID_CLAIM": "user_id",
+#     "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
+#     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+#     "TOKEN_TYPE_CLAIM": "token_type",
+#     "JTI_CLAIM": "jti",
+#     "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
+#     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
+#     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
+# }
