@@ -65,7 +65,7 @@ INSTALLED_APPS = [
 
     # MyApps
     'accounts',
-    'course'
+    'course',
 
 
 ]

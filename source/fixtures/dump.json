@@ -1,0 +1,34 @@
+[
+{
+    "model": "course.course",
+    "pk": 1,
+    "fields": {
+        "name": "Business",
+        "image": "",
+        "description": "The Best Course",
+        "type": 2,
+        "price": "2000.00",
+        "date_created": "2023-09-19T04:57:36.843Z",
+        "date_edited": "2023-09-19T04:57:36.843Z",
+        "user": [],
+        "favourites": []
+    }
+},
+{
+    "model": "course.course",
+    "pk": 2,
+    "fields": {
+        "name": "English",
+        "image": "",
+        "description": "The Best English Course",
+        "type": 3,
+        "price": "3000.00",
+        "date_created": "2023-09-19T04:58:01.604Z",
+        "date_edited": "2023-09-19T04:58:01.604Z",
+        "user": [],
+        "favourites": [
+            4
+        ]
+    }
+}
+]
