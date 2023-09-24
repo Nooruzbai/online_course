@@ -1,6 +1,3 @@
-from django.db import models
-
-# Create your models here.
 from django.contrib.auth import get_user_model
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
@@ -12,6 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE, verbose_name='Profile')
     bio = models.TextField(max_length=1000, blank=True, null=True, verbose_name='Bio')
     phone_number = PhoneNumberField(max_length=50, null=True, blank=True, unique=True, verbose_name="Phone number")
+
     class Meta:
         db_table = 'profile'
         verbose_name = 'Profile'

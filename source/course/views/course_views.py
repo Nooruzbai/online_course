@@ -1,12 +1,16 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView, CreateAPIView
 
 from course.models import Course
 from course.serializers import CourseSerializer
 
 
-# Create your views here.
 
 class CourseListView(ListAPIView):
+    serializer_class = CourseSerializer
+    queryset = Course.objects.all()
+
+
+class CourseCreateView(CreateAPIView):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
 
