@@ -1,9 +1,8 @@
 from django.contrib.auth import get_user_model
-from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
 from accounts.models import Profile
-from course.serializers import OrderSerializer, CourseSerializer
+from course.serializers import OrderSerializer
 
 User = get_user_model()
 

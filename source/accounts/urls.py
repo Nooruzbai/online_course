@@ -3,8 +3,7 @@ from dj_rest_auth.jwt_auth import get_refresh_view
 from dj_rest_auth.registration.views import RegisterView, VerifyEmailView, ResendEmailVerificationView
 from dj_rest_auth.views import LoginView, UserDetailsView, PasswordResetView, PasswordResetConfirmView, \
     PasswordChangeView
-from django.urls import path, re_path
-from django.views.generic import TemplateView
+from django.urls import path
 from rest_framework_simplejwt.views import TokenVerifyView
 
 from accounts.views import CustomLogoutView
@@ -34,3 +33,4 @@ if api_settings.USE_JWT:
         path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
         path('token/refresh/', get_refresh_view().as_view(), name='token_refresh'),
     ]
+

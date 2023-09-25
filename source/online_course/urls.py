@@ -48,6 +48,8 @@ urlpatterns = [
     path('account/', include('accounts.urls')),
     path('', include('course.urls')),
 
+
+
     re_path(
         r'^account-confirm-email/(?P<key>[-:\w]+)/$', TemplateView.as_view(),
         name='account_confirm_email',
