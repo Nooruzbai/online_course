@@ -34,3 +34,4 @@ class UserSerializer(ModelSerializer):
 
         instance = super().update(instance, validated_data)
         return instance
+

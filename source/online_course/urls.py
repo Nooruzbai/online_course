@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from accounts.views import LogoutView
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -42,10 +44,19 @@ urlpatterns = [
     path("", schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('admin/', admin.site.urls),
-    path('dj-rest-auth/', include('dj_rest_auth.urls')),
-    path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+    # path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('account/', include('accounts.urls')),
     path('', include('course.urls')),
+
+    re_path(
+        r'^account-confirm-email/(?P<key>[-:\w]+)/$', TemplateView.as_view(),
+        name='account_confirm_email',
+    ),
+    path(
+        'account-email-verification-sent/', TemplateView.as_view(),
+        name='account_email_verification_sent',
+    ),
+
 ]
 
 
