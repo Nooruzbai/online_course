@@ -1,11 +1,17 @@
+from dj_rest_auth.jwt_auth import set_jwt_cookies
+from django.contrib.auth import login as django_login
 from dj_rest_auth.app_settings import api_settings
-from dj_rest_auth.views import LogoutView
+from dj_rest_auth.models import get_token_model
+from dj_rest_auth.utils import jwt_encode
+from dj_rest_auth.views import LogoutView, LoginView, sensitive_post_parameters_m
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from online_course import settings
 from django.contrib.auth import logout as django_logout
+from django.utils import timezone
 
 user = get_user_model
 

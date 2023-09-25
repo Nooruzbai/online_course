@@ -1,3 +1,4 @@
+from dj_rest_auth.serializers import LoginSerializer as RestAuthLoginSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.serializers import ModelSerializer
 
@@ -34,3 +35,6 @@ class UserSerializer(ModelSerializer):
         instance = super().update(instance, validated_data)
         return instance
 
+
+class LoginSerializer(RestAuthLoginSerializer):
+    username = None

@@ -1,8 +1,8 @@
 from dj_rest_auth.app_settings import api_settings
 from dj_rest_auth.jwt_auth import get_refresh_view
 from dj_rest_auth.registration.views import RegisterView, VerifyEmailView, ResendEmailVerificationView
-from dj_rest_auth.views import LoginView, UserDetailsView, PasswordResetView, PasswordResetConfirmView, \
-    PasswordChangeView
+from dj_rest_auth.views import UserDetailsView, PasswordResetView, PasswordResetConfirmView, \
+    PasswordChangeView, LoginView
 from django.urls import path
 from rest_framework_simplejwt.views import TokenVerifyView
 

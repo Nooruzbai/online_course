@@ -194,10 +194,11 @@ AUTHENTICATION_BACKENDS = (
 
 REST_AUTH = {
     'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserSerializer',
+    'LOGIN_SERIALIZER': 'accounts.serializers.LoginSerializer',
     'LOGOUT_SERIALIZER': 'accounts.serializers.LogoutSerializer',
     'ACCOUNT_EMAIL_REQUIRED': True,
     'ACCOUNT_UNIQUE_EMAIL': True,
-    'USERNAME_REQUIRED': True,
+    'USERNAME_REQUIRED': False,
     'ACCOUNT_AUTHENTICATION_METHOD': 'email',
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'access',
