@@ -8,6 +8,7 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ("id", "name", "image", "description", "type", "price")
 
+
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
