@@ -61,6 +61,10 @@ INSTALLED_APPS = [
     # 'django_filters',
     'corsheaders',
 
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.google',
 
 
     # MyApps
