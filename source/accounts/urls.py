@@ -5,8 +5,7 @@ from dj_rest_auth.views import UserDetailsView, PasswordResetView, PasswordReset
     PasswordChangeView, LoginView
 from django.urls import path
 from rest_framework_simplejwt.views import TokenVerifyView
-
-from accounts.views import CustomLogoutView
+from accounts.views import CustomLogoutView , FacebookLogin, TwitterLogin, GoogleLogin
 
 app_name = 'accounts'
 
@@ -23,6 +22,10 @@ urlpatterns = [
     path("user/", UserDetailsView.as_view(), name="rest_user_details"),
     path('verify-email/', VerifyEmailView.as_view(), name='rest_verify_email'),
     path('resend-email/', ResendEmailVerificationView.as_view(), name="rest_resend_email"),
+
+    path('auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
+    path('auth/twitter/', TwitterLogin.as_view(), name='twitter_login'),
+    path('auth/google/', GoogleLogin.as_view(), name='google_login')
 
 ]
 
