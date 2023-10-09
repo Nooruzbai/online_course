@@ -13,3 +13,18 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ("course",)
+
+
+class CartCourseSerializer(CourseSerializer):
+    quantity = serializers.IntegerField(required=True)
+
+    class Meta:
+        model = Course
+        fields = ('quantity',)
+
+
+
+
+
+
+
