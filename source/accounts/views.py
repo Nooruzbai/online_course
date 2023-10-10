@@ -1,18 +1,12 @@
-from dj_rest_auth.jwt_auth import set_jwt_cookies
-from django.contrib.auth import login as django_login
 from dj_rest_auth.app_settings import api_settings
-from dj_rest_auth.models import get_token_model
-from dj_rest_auth.utils import jwt_encode
-from dj_rest_auth.views import LogoutView, LoginView, sensitive_post_parameters_m
+from dj_rest_auth.views import LogoutView
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render
 from rest_framework import status
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from online_course import settings
 from django.contrib.auth import logout as django_logout
-from django.utils import timezone
+
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
@@ -80,6 +74,7 @@ class CustomLogoutView(LogoutView):
                 response.status_code = status.HTTP_200_OK
         return response
 
+
 class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
 
@@ -91,4 +86,3 @@ class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
     # callback_url = CALLBACK_URL_YOU_SET_ON_GOOGLE
     client_class = OAuth2Client
-

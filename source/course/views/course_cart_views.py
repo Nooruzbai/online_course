@@ -1,13 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_POST
-from rest_framework.generics import CreateAPIView
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED
 from rest_framework.views import APIView
 
 from ..cart import Cart
 from ..models import Course
-from ..serializers import CartCourseSerializer
 
 class CartAddView(APIView):
     def post(self, request, pk,  *args, **kwargs):
